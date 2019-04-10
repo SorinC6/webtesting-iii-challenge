@@ -43,7 +43,19 @@ describe("The Display Component", () => {
 
   it("it shoud display green-led class when locked prop is false", () => {
     const wrap = rt.render(<Display locked={false} />);
-    const lockedTrue = wrap.getByText(/locked/i);
-    expect(lockedTrue).toHaveClass("led green-led");
+    const lockedFalse = wrap.getByText(/locked/i);
+    expect(lockedFalse).toHaveClass("led green-led");
+  });
+
+  it("it should display red-led when closed prop in true", () => {
+    const wrap = rt.render(<Display closed={true} />);
+    const closedTrue = wrap.getByTestId("closedDisplay");
+    expect(closedTrue).toHaveClass("led red-led");
+  });
+
+  it("it should display green-led when closed prop in false", () => {
+    const wrap = rt.render(<Display closed={false} />);
+    const closedTrue = wrap.getByTestId("closedDisplay");
+    expect(closedTrue).toHaveClass("led green-led");
   });
 });
