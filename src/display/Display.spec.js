@@ -4,6 +4,8 @@ import Display from "./Display";
 import "jest-dom/extend-expect";
 import * as rt from "react-testing-library";
 
+afterEach(rt.cleanup);
+
 describe("The Display Component", () => {
   it("render without crasing", () => {
     rt.render(<Display />);
@@ -22,14 +24,26 @@ describe("The Display Component", () => {
   });
 
   it("shoud display Loked if loked prop is true", () => {
-    const wrap = rt.render(<Display loked={true} />);
+    const wrap = rt.render(<Display locked={true} />);
     const loked = wrap.getByText(/locked/i);
     expect(loked).toBeDefined();
   });
 
   it("shoud display Open if loked prop is false", () => {
-    const wrap = rt.render(<Display loked={false} />);
+    const wrap = rt.render(<Display locked={false} />);
     const loked = wrap.getByText(/Unlocked/i);
     expect(loked).toBeDefined();
+  });
+
+  it("it shoud display red-led class when locked prop is true", () => {
+    const wrap = rt.render(<Display locked={true} />);
+    const lockedTrue = wrap.getByText(/locked/i);
+    expect(lockedTrue).toHaveClass("led red-led");
+  });
+
+  it("it shoud display green-led class when locked prop is false", () => {
+    const wrap = rt.render(<Display locked={false} />);
+    const lockedTrue = wrap.getByText(/locked/i);
+    expect(lockedTrue).toHaveClass("led green-led");
   });
 });
