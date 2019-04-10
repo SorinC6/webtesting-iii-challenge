@@ -20,4 +20,16 @@ describe("The Display Component", () => {
     const open = wrap.getByText(/open/i);
     expect(open).toBeDefined();
   });
+
+  it("shoud display Loked if loked prop is true", () => {
+    const wrap = rt.render(<Display loked={true} />);
+    const loked = wrap.getByText(/locked/i);
+    expect(loked).toBeDefined();
+  });
+
+  it("shoud display Open if loked prop is false", () => {
+    const wrap = rt.render(<Display loked={false} />);
+    const loked = wrap.getByText(/Unlocked/i);
+    expect(loked).toBeDefined();
+  });
 });
