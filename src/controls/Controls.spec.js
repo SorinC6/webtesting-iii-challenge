@@ -20,12 +20,21 @@ describe("Testing Controls component", () => {
 
   it("execute function toggleClosed when toggle is pressed", () => {
     const toggleClosed = jest.fn();
-    const wrap = rt.render(<Controls toggleClosed={toggleClosed} disable={false} />);
+    const wrap = rt.render(
+      <Controls toggleClosed={toggleClosed} closed={false} />
+    );
     const button = wrap.getByText(/Close Gate/i);
     rt.fireEvent.click(button);
     expect(toggleClosed).toHaveBeenCalledTimes(1);
     rt.fireEvent.click(button);
     expect(toggleClosed).toHaveBeenCalledTimes(2);
+  });
 
+  it("execute passed function when locked gate is clicked", () => {
+    const mockFn = jest.fn();
+    const wrap = rt.render(<Controls toggleLocked={mockFn} locked={false} />);
+    const button = wrap.getByText(/lock gate/i);
+    rt.fireEvent.click(button);
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 });
